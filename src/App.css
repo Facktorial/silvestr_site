@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -34,5 +35,92 @@
   }
   to {
     transform: rotate(360deg);
+  }
+} */
+
+ .Damien {
+  position: absolute;
+  z-index: 2; /* Set z-index higher than other elements */
+  width: 20em; /* Adjust size as needed */
+  top: 10vh; /* Adjust position */
+  left: 10vw; /* Adjust position */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0D343A;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(13,52,58,1)), to(#000000));
+  background: linear-gradient(to bottom, rgba(13,52,58,1) 0%, rgba(0,0,0,1) 100%);
+  overflow: hidden;
+}
+
+.text {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+}
+
+.event-name, .event-date {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    0 2px 0 #000,
+    2px 0 0 #000,
+    0 -2px 0 #000,
+    -2px 0 0 #000;
+}
+
+.event-name {
+  font-size: 8vw; /* Responsive font size */
+  margin-bottom: 0.1em;
+}
+
+.event-date {
+  font-size: 2vw; /* Responsive font size */
+  margin-bottom: 0.3em;
+}
+
+.App-header {
+  z-index: 2;
+  position: relative;
+}
+
+.App-link {
+  color: #61dafb;
+  margin: 0 10px;
+}
+
+.rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.drop {
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(13,52,58,1)), to(rgba(255,255,255,0.6)));
+  background: linear-gradient(to bottom, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);
+  width: 1px;
+  height: 89px;
+  position: absolute;
+  bottom: 200px;
+  animation: fall 1.3s linear infinite;
+}
+
+@keyframes fall {
+  to {
+    margin-top: 900px;
   }
 }
