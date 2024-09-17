@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import city from './noir.svg';
+import discord from './discord.svg';
 import damien from './damien_post.svg';
 import './App.css';
 
 function App() {
   useEffect(() => {
-    const nbDrop = 858;
+    const nbDrop = 458;
 
     function randRange(minNum: number, maxNum: number) {
       return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
@@ -49,22 +50,26 @@ function App() {
   // >
   //   Learn React
   // </a>
+
+  const discordUrl = "https://discord.gg/VCMT36qn"
+
   return (
     <div className="App">
       <div className="rain"></div>
       <header className="App-header">
-        <h1  className="event-name">SpekulACE</h1>
+        <h1  className="event-name">Silvestr s Karlem Sedláčkem 2024</h1>
         <p className="event-date">27.12.-1.1.</p>
+        <p className="event-date">Chata v horách</p>
 
         <p className="text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Karel je na stopě konci roku, který se mu snaží uniknout. Neznámo se žene na Karla.
         </p>
         <div>
-          <a href="#" className="App-link">Link 1</a>
-          <a href="#" className="App-link">Link 2</a>
+          <a href="#" className="App-link">Info v přihlášce</a>
         </div>
-        <img src={city} className="City" alt="city" />
+        <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+          <img src={discord} className="Discord" alt="discord" />
+        </a>
         <img src={damien} className="Damien" alt="damien" />
       </header>
     </div>
