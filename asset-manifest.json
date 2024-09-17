@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/silvestr_site/static/css/main.705e64d7.css",
-    "main.js": "/silvestr_site/static/js/main.8938bb6a.js",
+    "main.css": "/silvestr_site/static/css/main.56a18614.css",
+    "main.js": "/silvestr_site/static/js/main.96873bc7.js",
     "static/js/453.115f36d6.chunk.js": "/silvestr_site/static/js/453.115f36d6.chunk.js",
-    "static/media/noir.svg": "/silvestr_site/static/media/noir.3baadd1d8d56f9dbfc38588975b44d52.svg",
-    "static/media/damien_post.svg": "/silvestr_site/static/media/damien_post.2c8cc27005cc44c2b860e48a62e9fd2c.svg",
+    "static/media/discord.svg": "/silvestr_site/static/media/discord.a8cafe1b701451f2c61ce28d67a77820.svg",
+    "static/media/damien_post.svg": "/silvestr_site/static/media/damien_post.626c016734bd544b19ab9a3417f633cb.svg",
     "index.html": "/silvestr_site/index.html",
-    "main.705e64d7.css.map": "/silvestr_site/static/css/main.705e64d7.css.map",
-    "main.8938bb6a.js.map": "/silvestr_site/static/js/main.8938bb6a.js.map",
+    "main.56a18614.css.map": "/silvestr_site/static/css/main.56a18614.css.map",
+    "main.96873bc7.js.map": "/silvestr_site/static/js/main.96873bc7.js.map",
     "453.115f36d6.chunk.js.map": "/silvestr_site/static/js/453.115f36d6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.705e64d7.css",
-    "static/js/main.8938bb6a.js"
+    "static/css/main.56a18614.css",
+    "static/js/main.96873bc7.js"
   ]
 }
