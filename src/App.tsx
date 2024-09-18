@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import city from './noir.svg';
 import discord from './discord.svg';
@@ -32,45 +33,32 @@ function App() {
     // Recreate rain on window resize
     window.addEventListener('resize', createRain);
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', createRain);
     };
   }, []);
 
-  // <img src={logo} className="App-logo" alt="logo" />
-  // <p>
-  //   Edit <code>src/App.tsx</code> and save to reload.
-  // </p>
-  // <a
-  //   className="App-link"
-  //   href="https://reactjs.org"
-  //   target="_blank"
-  //   rel="noopener noreferrer"
-  // >
-  //   Learn React
-  // </a>
-
-  const discordUrl = "https://discord.gg/VCMT36qn"
+  const discordUrl = "https://discord.gg/VCMT36qn";
+  const textik = "Karel je na stopě konci roku, který se mu snaží uniknout. Rok se žene do neznáma. Neznámo se žene na Karla.";
+  const event_name = "Silvestr s Karlem Sedláčkem 2024";
+  const event_place = "Chata v horách";
+  const event_date = "27.12.-1.1.";
 
   return (
     <div className="App">
       <div className="rain"></div>
-      <header className="App-header">
-        <h1  className="event-name">Silvestr s Karlem Sedláčkem 2024</h1>
-        <p className="event-date">27.12.-1.1.</p>
-        <p className="event-date">Chata v horách</p>
+      <header className="App-header2">
+        <h1  className="event-name">{event_name}</h1>
+        <p className="event-date">{event_date}</p>
+        <p className="event-date">{event_place}</p>
 
-        <p className="text">
-          Karel je na stopě konci roku, který se mu snaží uniknout. Neznámo se žene na Karla.
-        </p>
+        <p className="text">{textik}</p>
         <div>
           <a href="#" className="App-link">Info v přihlášce</a>
         </div>
         <a href={discordUrl} target="_blank" rel="noopener noreferrer">
           <img src={discord} className="Discord" alt="discord" />
         </a>
-        <img src={damien} className="Damien" alt="damien" />
       </header>
     </div>
   );
