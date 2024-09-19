@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 function Map() {
-  const header = "Seznam organizátorů, účastníků a možná informací"
+  const header = "Seznam organizátorů, účastníků a možná i informací"
 
   return (
     <div className="App-world">

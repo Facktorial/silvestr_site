@@ -10,7 +10,7 @@ function Warning() {
   return (
     <div className="App">
       
-      <header className="App-header">
+      <header className="Warning-header">
         <Fade top>
             <img src={logo} className="App-logo" alt="logo" />
         <p>
