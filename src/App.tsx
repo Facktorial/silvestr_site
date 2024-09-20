@@ -65,7 +65,7 @@ function App() {
         numDrops={547} 
         zIndex={1000} 
         size={2} 
-        color="#FFFFFF" 
+        color="rgba(255, 255, 255, 0.7)"
         velocity={2}
       />
       <header className="App-header">

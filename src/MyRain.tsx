@@ -19,8 +19,11 @@ class MyRain extends Component<RainProps, RainState> {
     velocity: 15
   };
 
+  private animationFrameId: number | null = null;
+
   componentDidMount() {
     this.startRain();
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentDidUpdate(prevProps: RainProps) {
@@ -33,37 +36,96 @@ class MyRain extends Component<RainProps, RainState> {
   componentWillUnmount() {
     this.stopRain();
   }
+  
+  handleResize = () => {
+    this.stopRain();
+    this.startRain();
+  }
 
-  startRain() {
+    startRain = () => {
     const rainSection = document.getElementById('Rain');
     if (!rainSection) return;
 
-    const { innerWidth: width, innerHeight: height } = window;
-    console.log("width:", width);
-    console.log("height:", height);
-
-    for (let i = 1; i < this.props.numDrops; i++) {
+    const createDrop = () => {
+      const { innerWidth: width, innerHeight: height } = window;
       const dropLeft = this.randRange(0, width);
-      const dropTop = this.randRange(-1000, 1400);
+      const dropTop = -this.props.size * 15; // Start above the screen
 
       const drop = document.createElement('div');
       drop.setAttribute('class', 'drop');
-      drop.setAttribute('id', `drop${i}`);
-
-      rainSection.appendChild(drop);
-
       drop.style.left = `${dropLeft}px`;
       drop.style.top = `${dropTop}px`;
       drop.style.zIndex = `${this.props.zIndex}`;
       drop.style.width = `${this.props.size}px`;
-      drop.style.height = `${this.props.size * 5}px`;
-      drop.style.backgroundColor = this.props.color;
+      drop.style.height = `${this.props.size * 15}px`;
+      drop.style.background = `linear-gradient(to bottom, rgba(255,255,255,0) 0%, ${this.props.color} 100%)`;
+      drop.style.filter = 'blur(1px)';
+      drop.style.position = 'absolute';
 
-      this.animate(drop);
+      rainSection.appendChild(drop);
+
+      return drop;
+    };
+
+    const drops: HTMLElement[] = [];
+    for (let i = 0; i < this.props.numDrops; i++) {
+      drops.push(createDrop());
     }
+
+    const animateRain = () => {
+      const height = window.innerHeight;
+      drops.forEach((drop, index) => {
+        let top = parseFloat(drop.style.top);
+        top += this.props.velocity;
+        drop.style.top = `${top}px`;
+
+        if (top > height) {
+          rainSection.removeChild(drop);
+          drops[index] = createDrop();
+        }
+      });
+
+      this.animationFrameId = requestAnimationFrame(animateRain);
+    };
+
+    this.animationFrameId = requestAnimationFrame(animateRain);
   }
 
+  // startRain() {
+  //   const rainSection = document.getElementById('Rain');
+  //   if (!rainSection) return;
+
+  //   const { innerWidth: width, innerHeight: height } = window;
+  //   console.log("width:", width);
+  //   console.log("height:", height);
+
+  //   for (let i = 1; i < this.props.numDrops; i++) {
+  //     const dropLeft = this.randRange(0, width);
+  //     const dropTop = this.randRange(-height, 0);
+
+  //     const drop = document.createElement('div');
+  //     drop.setAttribute('class', 'drop');
+  //     drop.setAttribute('id', `drop${i}`);
+
+  //     rainSection.appendChild(drop);
+
+  //     drop.style.left = `${dropLeft}px`;
+  //     drop.style.top = `${dropTop}px`;
+  //     drop.style.zIndex = `${this.props.zIndex}`;
+  //     drop.style.width = `${this.props.size}px`;
+  //     drop.style.height = `${this.props.size * 15}px`;
+  //     drop.style.background = `linear-gradient(to bottom, rgba(255,255,255,0) 0%, ${this.props.color} 100%)`;
+  //     drop.style.filter = 'blur(1px)';
+  //     drop.style.position = 'absolute';
+
+  //     this.animate(drop);
+  //   }
+  // }
+
   stopRain() {
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
     const rainSection = document.getElementById('Rain');
     if (!rainSection) return;
 
@@ -72,18 +134,20 @@ class MyRain extends Component<RainProps, RainState> {
     }
   }
 
-  animate = (drop: HTMLElement) => {
-    let position = parseInt(drop.style.top, 10);
-    const moveRain = () => {
-      if (position >= 1400) {
-        position = -25;
-      }
-      position += this.props.velocity;
-      drop.style.top = `${position}px`;
-      requestAnimationFrame(moveRain);
-    };
-    requestAnimationFrame(moveRain);
-  }
+  // animate = (drop: HTMLElement) => {
+  //   const height = window.innerHeight;
+  //   let position = parseInt(drop.style.top, 10);
+  //   const moveRain = () => {
+  //     if (position >= height) {
+  //       position = -parseFloat(drop.style.height);
+  //       drop.style.left = `${this.randRange(0, window.innerWidth)}px`;
+  //     }
+  //     position += this.props.velocity;
+  //     drop.style.top = `${position}px`;
+  //     requestAnimationFrame(moveRain);
+  //   };
+  //   requestAnimationFrame(moveRain);
+  // }
 
   randRange(minNum: number, maxNum: number): number {
     return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
@@ -98,7 +162,8 @@ class MyRain extends Component<RainProps, RainState> {
         width: '100%', 
         height: '100%', 
         pointerEvents: 'none',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        zIndex: this.props.zIndex
       }}></div>
     );
   }
