@@ -35,6 +35,7 @@ class MyRain extends Component<RainProps, RainState> {
 
   componentWillUnmount() {
     this.stopRain();
+    window.removeEventListener('resize', this.handleResize);
   }
   
   handleResize = () => {
@@ -42,7 +43,7 @@ class MyRain extends Component<RainProps, RainState> {
     this.startRain();
   }
 
-    startRain = () => {
+  startRain = () => {
     const rainSection = document.getElementById('Rain');
     if (!rainSection) return;
 
