@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import city from './noir.svg';
@@ -12,12 +12,21 @@ import './App.css';
 //import "react-rain-animation/lib/style.css";
 import MyRain from './MyRain';
 
+const DROPS_PER_PIXEL = 0.0005;
+
 function App() {
-    const nbDrop = 858;
+  const [nbDrop, setNbDrop] = useState(0);
+  const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  // const nbDrop = 858;
 
   const randRange = (minNum: number, maxNum: number) => {
     return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
   };
+
+  const calculateDrops = useCallback(() => {
+  const area = windowSize.width * windowSize.height;
+    return Math.floor(area * DROPS_PER_PIXEL);
+  }, [windowSize]);
 
   const createRain = useCallback(() => {
     const rainSection = document.querySelector('.rain');
@@ -26,7 +35,8 @@ function App() {
     // Clear existing rain drops
     rainSection.innerHTML = '';
 
-    for (let i = 1; i < nbDrop; i++) {
+    const drops = calculateDrops();
+    for (let i = 1; i < drops; i++) {
       const dropLeft = randRange(0, window.innerWidth);
       const dropTop = randRange(-1000, window.innerHeight);
       const drop = document.createElement('div');
@@ -36,26 +46,35 @@ function App() {
       drop.style.top = `${dropTop}px`;
       rainSection.appendChild(drop);
     }
-  }, [nbDrop]);
+    setNbDrop(drops);
+  }, [windowSize, calculateDrops]);
 
   useEffect(() => {
-    createRain();
+    //createRain();
     
     // Debounce the resize event
-    let resizeTimer: NodeJS.Timeout;
+    // let resizeTimer: NodeJS.Timeout;
+    // const handleResize = () => {
+    //   clearTimeout(resizeTimer);
+    //   resizeTimer = setTimeout(() => {
+    //     createRain();
+    //   }, 250);
+    // };
     const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        createRain();
-      }, 250);
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     };
 
     window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call to set the correct window size
     
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    createRain();
   }, [createRain]);
 
   const discordUrl = "https://discord.gg/VCMT36qn";
@@ -72,6 +91,7 @@ function App() {
         <h1  className="event-name">{event_name}</h1>
         <p className="event-date">{event_date}</p>
         <p className="event-date">{event_place}</p>
+        <p>Current number of drops: {nbDrop}</p>
 
         <p className="text">{textik}</p>
         <div className="button-wrapper"style={{ position: 'relative', zIndex: 10 }}>
